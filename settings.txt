@@ -1,0 +1,10 @@
+num_docs: 2246
+num_terms: 10473
+num_topics: 100
+batch_size: 2246
+alpha: 0.01
+eta: 0.01
+tau0: 1.0
+kappa: 0
+iter_infer: 200
+iter_train: 200
