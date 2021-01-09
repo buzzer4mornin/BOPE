@@ -17,7 +17,7 @@ def read_data(filename):
             break
         terms = line.split(' ')
         doc_length = int(terms[0])
-        #TODO: are you sure "word_counts --> int32"?  int16 might take less memory and do okay as well.
+        # are you sure "word_counts --> int32"?  int16 might take less memory and do okay as well.
         ids = np.zeros(doc_length, dtype=np.int32)
         cts = np.zeros(doc_length, dtype=np.int32)
         for j in range(1, doc_length + 1):
@@ -127,9 +127,10 @@ def read_setting(file_name):
     ddict = dict(zip(sets, vals))
     ddict['num_terms'] = int(ddict['num_terms'])
     ddict['num_topics'] = int(ddict['num_topics'])
-    ddict['iter_train'] = int(ddict['iter_train'])
-    ddict['iter_infer'] = int(ddict['iter_infer'])
+    ddict['tops'] = int(ddict['tops'])
     ddict['batch_size'] = int(ddict['batch_size'])
+    ddict['iter_infer'] = int(ddict['iter_infer'])
+    ddict['iter_train'] = int(ddict['iter_train'])
     return(ddict)
 
 
@@ -231,7 +232,7 @@ def write_loop(i, j, file_name):
     f.write('%d, %d'%(i,j))
     f.close()
 
-#TODO: changed ddict.keys() ---> list(ddict.keys())  &&   ddict.values() ---> list(ddict.values())
+#changed ddict.keys() ---> list(ddict.keys())  &&   ddict.values() ---> list(ddict.values())
 def write_setting(ddict, file_name):
     keys = list(ddict.keys())
     vals = list(ddict.values())

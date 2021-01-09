@@ -23,7 +23,6 @@ def main():
     setting_file = sys.argv[2]
     model_folder = sys.argv[3]
     test_data_folder = sys.argv[4]
-    tops = 20  # int(sys.argv[5])
     # Create model folder if it doesn't exist
     if os.path.exists(model_folder):
         shutil.rmtree(model_folder)
@@ -65,10 +64,10 @@ def main():
             # ========================= TILL HERE OKAY [1] ======================================
             # Compute sparsity
             sparsity = utilities.compute_sparsity(theta, theta.shape[0], theta.shape[1], 't')
-            #print(sparsity)        # for Testing Sparsity of 1st theta
-            #print(theta[0,:])      # for Testing Sparsity of 1st theta
+            # print(sparsity)        # for Testing Sparsity of 1st theta
+            # print(theta[0,:])      # for Testing Sparsity of 1st theta
             # Compute perplexities
-            #LD2 = utilities.compute_perplexities_vb(ml_ope.beta, ddict['alpha'], ddict['eta'], ddict['iter_infer'], \
+            # LD2 = utilities.compute_perplexities_vb(ml_ope.beta, ddict['alpha'], ddict['eta'], ddict['iter_infer'], \
             #                                        wordids_1, wordcts_1, wordids_2, wordcts_2)
             LD2 = None
 
@@ -76,9 +75,9 @@ def main():
             prev_list_tops = list_tops
 
             # Search top words of each topics
-            list_tops = utilities.list_top(ml_ope.beta, tops)
+            list_tops = utilities.list_top(ml_ope.beta, ddict['tops'])
 
-            # TODO:
+            # TODO: add [last 25% avg diff count] to new file to compare later with other settings
             # Calculate and print difference between old and current list_tops
             utilities.diff_list_tops(list_tops, prev_list_tops, i)
 

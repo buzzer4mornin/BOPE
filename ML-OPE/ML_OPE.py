@@ -73,7 +73,7 @@ class MLOPE:
         theta = np.zeros((batch_size, self.num_topics))
         # Inference
         for d in range(batch_size):
-            thetad = self.infer_doc(wordids[d], wordcts[d],d)
+            thetad = self.infer_doc(wordids[d], wordcts[d], d)
             theta[d,:] = thetad
         return(theta)
         
