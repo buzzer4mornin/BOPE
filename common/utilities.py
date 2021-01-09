@@ -154,9 +154,11 @@ def compute_sparsity(doc_tp, batch_size, num_topics, _type):
             sparsity[d] = len(np.where(N_z != 0)[0])
     else:
         for d in range(batch_size):
-            sparsity[d] = len(np.where(doc_tp[d] > 1e-10)[0])
+            sparsity[d] = len(np.where(doc_tp[d] < 1e-20)[0])
+            #sparsity[d] = len(np.where(doc_tp[d] > 0.01)[0])  # for Testing Sparsity of 1st theta
     sparsity /= num_topics
     return(np.mean(sparsity))
+    #return (sparsity[0])  # for Testing Sparsity of 1st theta
 
 
 def list_top(beta, tops):
@@ -237,6 +239,23 @@ def write_setting(ddict, file_name):
     for i in range(len(keys)):
         f.write('%s: %f\n'%(keys[i], vals[i]))
     f.close()
+
+def diff_list_tops(list_tops, prev_list_tops, i):
+    if i == 1:
+        num_topics = len(list_tops)
+        tops = len(list_tops[0])
+        list_tops = np.array(list_tops)
+        init = np.negative(np.ones([num_topics, tops], dtype=int))
+        diff = init == list_tops
+        diff_count = np.count_nonzero(diff)
+        print(diff_count)
+    else:
+        list_tops = np.array(list_tops)
+        diff = prev_list_tops == list_tops
+        diff_count = np.count_nonzero(diff)
+        print(diff_count)
+
+
 
 def write_file(i, j, beta, time_e, time_m, theta, sparsity, LD2, list_tops, model_folder):
     #beta_file_name = '%s/beta_%d_%d.dat'%(model_folder, i, j)

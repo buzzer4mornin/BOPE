@@ -1,8 +1,8 @@
-num_docs: 2246
-num_terms: 10473
-num_topics: 100
-batch_size: 2246
-alpha: 0.01
+num_docs: 25900
+num_terms: 59901
+num_topics: 50
+batch_size: 25900
+alpha: 1
 eta: 0.01
 tau0: 1.0
 kappa: 0

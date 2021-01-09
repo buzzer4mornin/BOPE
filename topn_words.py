@@ -1,9 +1,10 @@
 #! /usr/bin/python
 
 # by_AYDIN:
-# usage: python topn_words.py ./data/nyt_voca.txt ./ML-OPE/list_tops.txt topn_output_aydin.txt
-# usage2: python topn_words.py ./data/ap_voca.txt ./ML-OPE/list_tops.txt ap_topn_output_aydin.txt
-
+# usage: python topn_words.py ./data/nyt_voca.txt ./models/nyt/4list_tops.txt topn_output_aydin.txt
+# usage2: python topn_words.py ./data/ap_voca.txt ./models/nyt/list_tops.txt ap_topn_output_aydin.txt
+# usage2: python topn_words.py ./data/ctmp_vocab.txt ./models/ctmp/list_tops.txt ctmp_topn_output_aydin.txt
+# blei topics: http://www.cs.columbia.edu/~blei/lda-c/ap-topics.pdf
 import sys
 import math
 

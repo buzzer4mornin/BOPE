@@ -8,7 +8,8 @@ sys.path.insert(0, '../common')
 import utilities
 
 """
-RUN ===>> ML-OPE ahmadli$ python ./run_ML_OPE.py ../data/ap.txt ../settings.txt ../models/ML_OPE/nyt ../data
+RUN ===>> ML-OPE ahmadli$ python ./run_ML_OPE.py ../data/ap.txt ../settings.txt ../models/nyt/ ../data
+CTMP RUN> ML-OPE ahmadli$ python ./run_ML_OPE.py ../data/ctmp_input.txt ../settings.txt ../models/ctmp/ ../data
 """
 
 
@@ -46,6 +47,7 @@ def main():
     # Start
     print('start!!!')
     i = 0
+    list_tops = []
     while i < ddict['iter_train']:
         i += 1
         print('\n***iter_train:%d***\n' % (i))
@@ -63,14 +65,23 @@ def main():
             # ========================= TILL HERE OKAY [1] ======================================
             # Compute sparsity
             sparsity = utilities.compute_sparsity(theta, theta.shape[0], theta.shape[1], 't')
-
+            #print(sparsity)        # for Testing Sparsity of 1st theta
+            #print(theta[0,:])      # for Testing Sparsity of 1st theta
             # Compute perplexities
             #LD2 = utilities.compute_perplexities_vb(ml_ope.beta, ddict['alpha'], ddict['eta'], ddict['iter_infer'], \
             #                                        wordids_1, wordcts_1, wordids_2, wordcts_2)
             LD2 = None
 
+            # Saving previous list_tops for diff_list_tops() below
+            prev_list_tops = list_tops
+
             # Search top words of each topics
             list_tops = utilities.list_top(ml_ope.beta, tops)
+
+            # TODO:
+            # Calculate and print difference between old and current list_tops
+            utilities.diff_list_tops(list_tops, prev_list_tops, i)
+
             # Write files
             utilities.write_file(i, j, ml_ope.beta, time_e, time_m, theta, sparsity, LD2, list_tops, model_folder)
         datafp.close()

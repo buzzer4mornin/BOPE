@@ -73,11 +73,11 @@ class MLOPE:
         theta = np.zeros((batch_size, self.num_topics))
         # Inference
         for d in range(batch_size):
-            thetad = self.infer_doc(wordids[d], wordcts[d])
+            thetad = self.infer_doc(wordids[d], wordcts[d],d)
             theta[d,:] = thetad
         return(theta)
         
-    def infer_doc(self, ids, cts):
+    def infer_doc(self, ids, cts, d):
         """
         Does inference for a document using Online MAP Estimation algorithm.
         
@@ -90,7 +90,11 @@ class MLOPE:
 
         ###print(self.beta.shape)
         # locate cache memory
+        #try:
         beta = self.beta[:, ids]
+        #except:
+        #    print(ids)
+        #    exit()
         ###print(beta.shape)
         ###exit()
 
