@@ -5,8 +5,7 @@ import per_vb
 
 
 def read_data(filename):
-    """Read all documents in the file and stores terms and counts in lists.
-    """
+    """ Read all documents in the file and stores terms and counts in lists. """
     wordids = list()
     wordcts = list()
     fp = open(filename, 'r')
@@ -31,8 +30,7 @@ def read_data(filename):
 
 
 def read_data_for_perpl(test_data_folder):
-    """ Read data for computing perplexities.
-    """
+    """ Read data for computing perplexities. """
     filename_part1 = '%s/data_test_1_part_1.txt'%(test_data_folder)
     filename_part2 = '%s/data_test_1_part_2.txt'%(test_data_folder)
     (wordids_1, wordcts_1) = read_data(filename_part1)
@@ -41,8 +39,7 @@ def read_data_for_perpl(test_data_folder):
 
 
 def read_minibatch_list_frequencies(fp, batch_size):
-    """Read mini-batch and stores terms and counts in lists.
-    """
+    """ Read mini-batch and stores terms and counts in lists. """
     wordids = list()
     wordcts = list()
     for i in range(batch_size):
@@ -61,52 +58,6 @@ def read_minibatch_list_frequencies(fp, batch_size):
         wordids.append(ids)
         wordcts.append(cts)
     return(wordids, wordcts)
-
-
-def read_minibatch_list_sequences(fp, batch_size):
-    """Read mini-batch and stores each document as a sequence of tokens (wordtks: token1 token2 ...).
-    """
-    wordtks = list()
-    lengths = list()
-    for i in range(batch_size):
-        line = fp.readline()
-        # check end of file
-        if len(line) < 5:
-            break
-        tks = list()
-        tokens = string.split(line)
-        counts = int(tokens[0]) + 1
-        for j in range(1, counts):
-            token_count = tokens[j].split(':')
-            token_count = map(int, token_count)
-            for k in range(token_count[1]):
-                tks.append(token_count[0])
-        wordtks.append(tks)
-        lengths.append(len(tks))
-    return(wordtks, lengths)
-
-
-def read_minibatch_dict(fp, batch_size):
-    """Read mini-batch and stores in dictionary (train_cts: (term:frequency)).
-    """
-    train_cts = list()
-    stop = 0
-    for i in range(batch_size):
-        line = fp.readline()
-        # check end of file
-        if len(line) < 5:
-            stop = 1
-            break
-        ids = list()
-        cts = list()
-        terms = string.split(line)
-        for j in range(1,int(terms[0]) + 1):
-            term_count = terms[j].split(':')
-            ids.append(int(term_count[0]))
-            cts.append(int(term_count[1]))
-        ddict = dict(zip(ids, cts))
-        train_cts.append(ddict)
-    return(train_cts, stop)
 
 
 def read_setting(file_name):
@@ -178,9 +129,6 @@ def list_top(beta, tops):
         list_tops.append(top)
     return(list_tops)
 
-"""
--------------------------------------------------------------------------------
-"""
 
 def write_topics(beta, file_name):
     num_terms = beta.shape[1]

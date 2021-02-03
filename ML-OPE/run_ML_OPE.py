@@ -13,6 +13,8 @@ CTMP RUN> ML-OPE ahmadli$ python ./run_ML_OPE.py ../data/ctmp_input.txt ../setti
 """
 
 
+# TODO: class attributes --> init --> self._attr (!! with underscores)
+
 def main():
     # Check input
     if len(sys.argv) != 5:
@@ -67,6 +69,7 @@ def main():
             # print(sparsity)        # for Testing Sparsity of 1st theta
             # print(theta[0,:])      # for Testing Sparsity of 1st theta
             # Compute perplexities
+
             # LD2 = utilities.compute_perplexities_vb(ml_ope.beta, ddict['alpha'], ddict['eta'], ddict['iter_infer'], \
             #                                        wordids_1, wordcts_1, wordids_2, wordcts_2)
             LD2 = None
