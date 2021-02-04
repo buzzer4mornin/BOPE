@@ -39,6 +39,7 @@ class MLOPE:
         beta_norm = self.beta.sum(axis=1)
         self.beta /= beta_norm[:, np.newaxis]
 
+
     def static_online(self, batch_size, wordids, wordcts):
         """
         First does an E step on the mini-batch given in wordids and
@@ -70,13 +71,34 @@ class MLOPE:
         Does e step
         Returns topic mixtures theta.
         """
+        #TODO: return theta below outside loop, dont initialize everytime
+
         # Declare theta of minibatch
-        theta = np.zeros((batch_size, self.num_topics))
+            theta = np.zeros((batch_size, self.num_topics))
+
+        # Initialize new parameters
+        '''mu = np.zeros((batch_size, self.num_topics))                                # ++++++++
+        #pfi = np.exp()
+        user_size = 444
+        e = 0.3
+        f = 0.3
+        lamb = 1.0
+        pfi = np.ones((user_size, batch_size, self.num_topics))
+        shp = np.ones((user_size, self.num_topics)) * 0.3
+        rte = np.ones((user_size, self.num_topics)) * 0.3'''
+
         # Inference
         for d in range(batch_size):
             thetad = self.infer_doc(wordids[d], wordcts[d], d)
             theta[d, :] = thetad
+
+            #mud = self.infer_mu(theta)                                             # ++++++++
+            #mu[d, :] = mud                                                         # ++++++++
         return theta
+
+    def infer_mu(self):                                                             # ++++++++
+        return 0
+
 
     def infer_doc(self, ids, cts, d):
         """
@@ -95,6 +117,16 @@ class MLOPE:
         # Initialize theta randomly
         theta = np.random.rand(self.num_topics) + 1.
         theta /= sum(theta)
+
+        # Initialize mu - offset for theta
+        '''lamb = 1
+        mu = theta + np.random.normal(0, lamb, theta.shape[0])             ########++++#########
+        print(theta)
+        exit()
+        print(mu)
+        exit()
+        #df = T[0] * (np.dot(beta, cts / x) + (self.alpha - 1) / theta) + T[1] * (-1 * self.lamb * (theta - mu))'''
+
 
         # x = sum_(k=2)^K theta_k * beta_{kj}
         x = np.dot(theta, beta)
@@ -143,7 +175,7 @@ class MLOPE:
 
             if best == 0:
                 theta = theta_lower
-                x = x + alpha * (beta[ , :] - x)
+                x = x + alpha * (beta[index_lower, :] - x)
             else:
                 theta = theta_upper
                 x = x + alpha * (beta[index_upper, :] - x)

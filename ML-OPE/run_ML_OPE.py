@@ -3,7 +3,7 @@
 
 import sys, os, shutil
 import ML_OPE
-
+import numpy as np
 sys.path.insert(0, '../common')
 import utilities
 
@@ -49,6 +49,7 @@ def main():
     print('start!!!')
     i = 0
     list_tops = []
+
     while i < ddict['iter_train']:
         i += 1
         print('\n***iter_train:%d***\n' % (i))
@@ -62,6 +63,7 @@ def main():
                 break
             # 
             print('---num_minibatch:%d---' % (j))
+
             (time_e, time_m, theta) = ml_ope.static_online(ddict['batch_size'], wordids, wordcts)
             # ========================= TILL HERE OKAY [1] ======================================
             # Compute sparsity
