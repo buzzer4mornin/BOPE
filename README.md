@@ -1,2 +1,1 @@
-# BOPE
-BOPE
+# MAP Estimation With Bernoulli Randomness
